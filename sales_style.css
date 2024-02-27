@@ -1,0 +1,50 @@
+/* menu_style.css */
+
+body {
+    font-family: Georgia, "Times New Roman", Times, serif; /* Specified serif web font for text */
+    color: #333; /* Specified font color for text */
+    background-color: #fff; /* Specified page background color */
+    margin: 0; /* Remove default body margin */
+}
+
+.rightous-regular {
+    font-family: "Righteous", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+header {
+    position: relative; /* Set position to absolute for positioning */
+    
+    font-size: 16pt;
+    text-align: center;
+    width: 100%; /* Set width to 100% */
+    height: 100px;
+    background-color: #000; /* Specified header background color */
+    color: salmon; /* Specified font color for header text */
+    padding: 0px;
+}
+
+
+
+.salmon-background {
+    background-color: salmon;
+    color:black;
+    width: auto;
+    height: 50px;
+    list-style: none;
+}
+
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav li a {
+    text-decoration: none;   
+
+}
+
+nav ul li a:hover {
+    color: #fff; /* Specified hover font color for navigation links */
+}
