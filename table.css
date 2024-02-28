@@ -1,9 +1,24 @@
 table {
-    width: 60%;
-    margin: 0 auto;
     border-collapse: collapse;
+    width: 60%;
+    margin: 0 auto; /* Center the table */
 }
 
 th, td {
-    font-weight: bold;
+    border: 1px solid #f1efef;
+    padding: 8px;
+    text-align: left;
 }
+
+th {
+    background-color: #424040;
+    color: white;
+}
+
+.locations {
+    background-color: #555;
+    color: white;
+    text-align: center;
+/* }I am going to leave this CSS here in case I want 
+to work in it if needed. By the end of the assignments 
+for this project, I will delete it if needed! *
