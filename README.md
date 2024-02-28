@@ -32,6 +32,4 @@ Location: Ca. Gral. Borgoño cuadra 8, Miraflores 15074
 
 [Deployed Site](https://outlandico.github.io/cookie-stand/index.html)
 
-
 ![Lighthouse](<Screenshot (2290).png>)
-
