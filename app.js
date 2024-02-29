@@ -1,119 +1,105 @@
-// Data for each location including phone number, hours, and address
-const locationsData = {
-    seattle: {
-        name: "Seattle",
-        minCustomers: 23,
-        maxCustomers: 65,
-        avgCookiesPerSale: 6.3,
-        hourlySales: [],
-        phoneNumber: "123-456-7890",
-        hours: "Mon-Sun: 9:00 AM - 8:00 PM",
-        address: "123 Main St, Seattle, WA"
-    },
-    tokyo: {
-        name: "Tokyo",
-        minCustomers: 3,
-        maxCustomers: 24,
-        avgCookiesPerSale: 1.2,
-        hourlySales: [],
-        phoneNumber: "987-654-3210",
-        hours: "Mon-Fri: 10:00 AM - 7:00 PM",
-        address: "456 Tokyo St, Tokyo"
-    },
-    dubai: {
-        name: "Dubai",
-        minCustomers: 11,
-        maxCustomers: 38,
-        avgCookiesPerSale: 3.7,
-        hourlySales: [],
-        phoneNumber: "456-789-0123",
-        hours: "Sat-Thu: 8:00 AM - 10:00 PM",
-        address: "789 Dubai Ave, Dubai"
-    },
-    paris: {
-        name: "Paris",
-        minCustomers: 20,
-        maxCustomers: 38,
-        avgCookiesPerSale: 2.3,
-        hourlySales: [],
-        phoneNumber: "789-012-3456",
-        hours: "Tue-Sat: 11:00 AM - 9:00 PM",
-        address: "567 Paris Blvd, Paris"
-    },
-    lima: {
-        name: "Lima",
-        minCustomers: 2,
-        maxCustomers: 16,
-        avgCookiesPerSale: 4.6,
-        hourlySales: [],
-        phoneNumber: "321-654-9870",
-        hours: "Sun-Wed: 12:00 PM - 6:00 PM",
-        address: "234 Lima St, Lima"
-    }
-};
+let allStores = [];
+let hours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm"];
+let totalPerHours = Array.from({ length: hours.length }, () => 0); // Initialize array with zeros for total sales per hour
+let totalSales = 0;
 
-// Function to generate a random number between min and max (inclusive)
-function getRandomNumberBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function Store(Location, minCustomers, maxCustomers, avgCookies) {
+    this.location = Location;
+    this.minCustomers = minCustomers;
+    this.maxCustomers = maxCustomers;
+    this.avgCookies = avgCookies;
+    this.totalSales = 0;
+    this.hourlySales = [];
+
+    this.generateSalesData();
+
+    allStores.push(this);
 }
 
-// Function to simulate hourly sales for each location from 6:00 AM to 8:00 PM
-for (let city in locationsData) {
-    const location = locationsData[city];
-    for (let hour = 6; hour <= 20; hour++) {
-        const simulatedCustomers = getRandomNumberBetween(location.minCustomers, location.maxCustomers);
-        const cookiesSold = Math.round(simulatedCustomers * location.avgCookiesPerSale);
-        location.hourlySales.push(cookiesSold);
+Store.prototype.generateSalesData = function() {
+    for (let i = 0; i < hours.length; i++) {
+        let pretendSales = Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
+        let hourlySales = Math.floor(pretendSales * this.avgCookies);
+        this.hourlySales.push(hourlySales);
+        totalPerHours[i] += hourlySales;
+        totalSales += hourlySales;
     }
 }
 
-// Create a table element to display the simulated sales data along with phone number, hours, and address
-const table = document.createElement("table");
-table.style.borderCollapse = "collapse";
+function createTableHeader() {
+    let header = document.getElementById("salesTableHeader");
+    let row = document.createElement("tr");
+    header.appendChild(row);
 
-// Create header row for locations, phone number, hours, and address
-const headerRow = table.insertRow();
-headerRow.style.backgroundColor = "darkgrey";
-headerRow.style.color = "white";
-headerRow.insertCell().textContent = "Locations";
-headerRow.insertCell().textContent = "Phone Number";
-headerRow.insertCell().textContent = "Hours";
-headerRow.insertCell().textContent = "Address";
-for (let hour = 6; hour <= 20; hour++) {
-    const hourCell = headerRow.insertCell();
-    hourCell.textContent = `${formatHour(hour)} ${getAMPM(hour)}`;
-    hourCell.style.backgroundColor = "darkgrey";
-    hourCell.style.color = "white";
-}
+    let location = document.createElement("th");
+    location.textContent = "Location";
+    row.appendChild(location);
 
-// Create rows for each location with phone number, hours, and address
-for (let city in locationsData) {
-    const row = table.insertRow();
-    const location = locationsData[city];
-    const locationCell = row.insertCell();
-    locationCell.textContent = location.name;
-    locationCell.style.backgroundColor = "white";
-    locationCell.style.color = "black";
-    row.insertCell().textContent = location.phoneNumber;
-    row.insertCell().textContent = location.hours;
-    row.insertCell().textContent = location.address;
-    for (let hour = 6; hour <= 20; hour++) {
-        const cell = row.insertCell();
-        cell.textContent = location.hourlySales[hour - 6];
-        cell.style.backgroundColor = "white";
-        cell.style.color = "black";
+    for (let i = 0; i < hours.length; i++) {
+        let th = document.createElement("th");
+        th.textContent = hours[i];
+        row.appendChild(th);
     }
+
+    let totals = document.createElement("th");
+    totals.textContent = "Location Totals";
+    row.appendChild(totals);
 }
 
-// Append the table to the document body
-document.body.appendChild(table);
+function createTableBody() {
+    let body = document.getElementById("salesTableBody");
+    allStores.forEach(store => {
+        let row = document.createElement("tr");
+        body.appendChild(row);
 
-// Function to convert 24-hour format to 12-hour format with AM/PM
-function formatHour(hour) {
-    return hour % 12 === 0 ? 12 : hour % 12;
+        let locationCell = document.createElement("td");
+        locationCell.textContent = store.location;
+        row.appendChild(locationCell);
+
+        for (let i = 0; i < store.hourlySales.length; i++) {
+            let td = document.createElement("td");
+            td.textContent = store.hourlySales[i];
+            row.appendChild(td);
+        }
+
+        let totalCell = document.createElement("td");
+        totalCell.textContent = store.hourlySales.reduce((acc, cur) => acc + cur, 0);
+        row.appendChild(totalCell);
+    });
 }
 
-// Function to determine AM or PM based on the hour
-function getAMPM(hour) {
-    return hour < 12 ? "AM" : "PM";
+function createTableFooter() {
+    let footer = document.getElementById("salesTableFooter");
+    let row = document.createElement("tr");
+    footer.appendChild(row);
+
+    let totalLabel = document.createElement("td");
+    totalLabel.textContent = "Totals by the hour";
+    row.appendChild(totalLabel);
+
+    for (let i = 0; i < totalPerHours.length; i++) {
+        let td = document.createElement("td");
+        td.textContent = totalPerHours[i];
+        row.appendChild(td);
+    }
+
+    let mainTotal = document.createElement("td");
+    mainTotal.textContent = totalSales;
+    row.appendChild(mainTotal);
 }
+
+function start() {
+    console.log("Starting the process");
+
+    let seattle = new Store("Seattle", 23, 65, 6.3);
+    let tokyo = new Store("Tokyo", 11, 42, 2.4);
+    let dubai = new Store("Dubai", 10, 38, 3.7);
+    let paris = new Store("Paris", 17, 48, 4.5);
+    let lima = new Store("Lima", 8, 30, 5.2);
+
+    createTableHeader();
+    createTableBody();
+    createTableFooter();
+}
+
+start();
