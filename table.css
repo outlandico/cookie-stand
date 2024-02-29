@@ -1,24 +1,46 @@
-table {
+/* Apply border-collapse to the table */
+#sales {
+    margin: 20px auto;
     border-collapse: collapse;
-    width: 60%;
-    margin: 0 auto; /* Center the table */
+    border: 2px solid black; /* Add border to the whole table */
+    flex-grow: calc(80%);
 }
 
-th, td {
-    border: 1px solid #f1efef;
+/* Style for table header */
+#salesTableHeader th {
+    border: 1px solid black;
     padding: 8px;
     text-align: left;
-}
-
-th {
-    background-color: #424040;
+    background: #4a4848; /* Header background color */
     color: white;
 }
 
-.locations {
-    background-color: #555;
-    color: white;
+/* Style for table body */
+#salesTableBody {
+    background-color: salmon; /* Salmon background color for table body */
+}
+
+#salesTableBody td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+/* Merge cells in right column */
+#salesTableBody td:last-child {
+    background-color: darkgrey; /* Dark grey background color */
+    border: 2px solid black; /* Add border */
+    border-left: none; /* Remove left border */
+    border-top: solid black; /* Remove left border */
+}
+
+/* Style for table footer */
+#salesTableFooter td {
+    padding: 8px;
     text-align: center;
-/* }I am going to leave this CSS here in case I want 
-to work in it if needed. By the end of the assignments 
-for this project, I will delete it if needed! *
+    border: solid #black;
+    background-color: darkgrey;
+}
+
+
+
+/* Style fo
