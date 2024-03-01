@@ -5,43 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Pat's Salmon Cookies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./reset.css">
     <link rel="stylesheet" type="text/css" href="./sales_style.css"> 
     <link rel="stylesheet" type="text/css" href="./table.css"> 
+    <link rel="stylesheet" type="text/css" href="./form.js"> 
 </head>
-<header>
+<body>
 
+<header>
     <div class="righteous-regular">
         <h1>Welcome to Pat's Salmon Cookies</h1>
     </div>
-    </header>
-    
-    <div class="salmon-background">
-        <nav>
-            <ul>
-                <link><a href="./index.html">Home</a>
-                <link><a href="./sales.html">Sales Data</a>
-            </div>
-            </ul>
-        </nav>
-    </div>
+</header>
 
-    <section>
-        
-    
-        <table id="sales">
-            <thead id="salesTableHeader"></thead>
-            <tbody id="salesTableBody"></tbody>
-            <tfoot id="salesTableFooter"></tfoot>
-        </table>
-    </main>
-    <script src="./app.js"></script>
+<div class="salmon-background">
+    <nav>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./sales.html">Sales Data</a></li>
+        </ul>
+    </nav>
+</div>
 
+<form id="storeForm">
+    <fieldset>
+        <legend>Store Information</legend>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location">
 
+        <label for="minCustomers">Minimum Customers Per Hour:</label>
+        <input type="number" id="minCustomers" name="minCustomers">
+
+        <label for="maxCustomers">Maximum Customers Per Hour:</label>
+        <input type="number" id="maxCustomers" name="maxCustomers">
+
+        <label for="avgCookies">Average Cookies Per Sale:</label>
+        <input type="number" id="avgCookies" name="avgCookies">
+
+        <button type="button" id="addStore">Add Store</button>
+    </fieldset>
+</form>
+
+<section>
+    <table id="sales">
+        <thead id="salesTableHeader"></thead>
+        <tbody id="salesTableBody"></tbody>
+        <tfoot id="salesTableFooter"></tfoot>
+    </table>
 </section>
-           
-</nav>
+
+<script src="./app.js"></script>
+<script src="./form.js"></script>
+
+
 </body>
 </html>
